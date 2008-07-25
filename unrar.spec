@@ -1,14 +1,14 @@
 Name:           unrar
 Version:        3.7.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
-
 License:        Freeware
 Group:          Applications/Archiving
 URL:            http://www.rarlab.com/rar_archiver.htm
 Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 Patch0:         http://ftp.debian.org/debian/pool/non-free/u/unrar-nonfree/unrar-nonfree_3.7.3-1.diff.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
 
 %description
 The unrar utility is a freeware program for extracting, testing and
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 24 2008 Conrad Meyer <konrad@tylerc.org> - 3.7.8-2
+- Import into RPM Fusion.
+
 * Sat Oct 13 2007 Ville Skyttä <ville.skytta at iki.fi> - 3.7.8-1
 - 3.7.8.
 
