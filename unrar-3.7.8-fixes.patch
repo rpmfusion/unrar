@@ -1,0 +1,42 @@
+diff -up unrar/dll.cpp.fix unrar/dll.cpp
+--- unrar/dll.cpp.fix	2007-09-10 13:49:28.000000000 +0200
++++ unrar/dll.cpp	2008-10-25 22:41:06.000000000 +0200
+@@ -275,7 +275,8 @@ int PASCAL ProcessFile(HANDLE hArcData,i
+       strcpy(Data->Cmd.Command,Operation==RAR_EXTRACT ? "X":"T");
+       Data->Cmd.Test=Operation!=RAR_EXTRACT;
+       bool Repeat=false;
+-      Data->Extract.ExtractCurrentFile(&Data->Cmd,Data->Arc,Data->HeaderSize,Repeat);
++      if(Data->Extract.ExtractCurrentFile(&Data->Cmd,Data->Arc,Data->HeaderSize,Repeat) == false)
++        return (ERAR_UNKNOWN);
+ 
+       while (Data->Arc.ReadHeader()!=0 && Data->Arc.GetHeaderType()==NEWSUB_HEAD)
+       {
+diff -up unrar/extract.cpp.fix unrar/extract.cpp
+--- unrar/extract.cpp.fix	2007-09-10 13:49:28.000000000 +0200
++++ unrar/extract.cpp	2008-10-25 22:41:06.000000000 +0200
+@@ -311,6 +311,7 @@ bool CmdExtract::ExtractCurrentFile(Comm
+     char CurVolName[NM];
+     strcpy(CurVolName,ArcName);
+ 
++    if(strcmp(ArcName,"")==0) return(false);
+     VolNameToFirstName(ArcName,ArcName,(Arc.NewMhd.Flags & MHD_NEWNUMBERING));
+     if (stricomp(ArcName,CurVolName)!=0 && FileExist(ArcName))
+     {
+diff -up unrar/makefile.unix.fix unrar/makefile.unix
+--- unrar/makefile.unix.fix	2008-10-25 22:41:06.000000000 +0200
++++ unrar/makefile.unix	2008-10-25 22:42:24.000000000 +0200
+@@ -86,7 +86,7 @@ COMPILE=$(CXX) $(CXXFLAGS) $(DEFINES)
+ LINK=$(CXX)
+ 
+ UNRAR_OBJ=filestr.o recvol.o rs.o scantree.o
+-LIB_OBJ=filestr.o scantree.o dll.o
++LIB_OBJ=filestr.o recvol.o rs.o scantree.o dll.o
+ 
+ OBJECTS=rar.o strlist.o strfn.o pathfn.o int64.o savepos.o global.o file.o filefn.o filcreat.o \
+ 	archive.o arcread.o unicode.o system.o isnt.o crypt.o crc.o rawread.o encname.o \
+@@ -116,4 +116,4 @@ sfx:	$(OBJECTS)
+ lib:	WHAT=RARDLL
+ lib:	$(OBJECTS) $(LIB_OBJ)
+ 	@rm -f libunrar.so
+-	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
++	$(LINK) -shared -Wl,-soname,libunrar.so.3.7 -o libunrar.so.3.7 $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
