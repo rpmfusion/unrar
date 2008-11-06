@@ -47,10 +47,10 @@ developing applications that use libunrar.
 
 
 %build
+make %{?_smp_mflags} -f makefile.unix \
+  CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" STRIP=: RANLIB=ranlib
 make %{?_smp_mflags} -f makefile.unix lib \
   CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" STRIP=: RANLIB=ranlib
-#make %{?_smp_mflags} -f makefile.unix \
-#  CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" STRIP=: RANLIB=ranlib
 
 
 %install
