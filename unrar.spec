@@ -3,7 +3,7 @@
 
 Name:           unrar
 Version:        3.7.8
-Release:        4%{?dist}
+Release:        3%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
