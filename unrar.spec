@@ -1,12 +1,16 @@
+# Might be needed to apply fuzzy patches with recent rpm
+#%%define _default_patch_fuzz 2
+
 Name:           unrar
 Version:        3.7.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
-License:        Freeware
+License:        Freeware with further limitations
 Group:          Applications/Archiving
 URL:            http://www.rarlab.com/rar_archiver.htm
 Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 Patch0:         http://ftp.debian.org/debian/pool/non-free/u/unrar-nonfree/unrar-nonfree_3.7.3-1.diff.gz
+Patch1:         unrar-3.7.8-fixes.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -16,24 +20,57 @@ viewing the contents of archives created with the RAR archiver version
 1.50 and above.
 
 
+%package -n libunrar
+Summary:        Decompress library for RAR v3 archives
+Group:          System Environment/Libraries
+
+%description -n libunrar
+The libunrar library allows programs linking against it to decompress
+existing RAR v3 archives.
+
+
+%package -n libunrar-devel
+Summary:        Development files for libunrar
+Group:          Development/Libraries
+Requires:       libunrar = %{version}-%{release}
+Provides:       libunrar3-%{version}
+
+%description -n libunrar-devel
+The libunrar-devel package contains libraries and header files for
+developing applications that use libunrar.
+
+
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1 -b .fix
 
 
 %build
 make %{?_smp_mflags} -f makefile.unix \
-  CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS" STRIP=:
+  CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" STRIP=: RANLIB=ranlib
+make %{?_smp_mflags} -f makefile.unix lib \
+  CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" STRIP=: RANLIB=ranlib
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-install -Dpm 755 unrar $RPM_BUILD_ROOT%{_bindir}/unrar
-install -Dpm 644 debian/unrar.1 $RPM_BUILD_ROOT%{_mandir}/man1/unrar.1
+rm -rf %{buildroot}
+install -Dpm 755 unrar %{buildroot}%{_bindir}/unrar
+install -Dpm 644 debian/unrar.1 %{buildroot}%{_mandir}/man1/unrar.1
+install -Dpm 755 libunrar.so.3.7 %{buildroot}%{_libdir}/libunrar.so.3.7
+install -Dpm 644 dll.hpp %{buildroot}/%{_includedir}/unrar/dll.hpp
+ln -s libunrar.so.3.7 %{buildroot}%{_libdir}/libunrar.so.3
+ln -s libunrar.so.3 %{buildroot}%{_libdir}/libunrar.so
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+
+
+%post -n libunrar -p /sbin/ldconfig
+
+
+%postun -n libunrar -p /sbin/ldconfig
 
 
 %files
@@ -42,8 +79,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/unrar
 %{_mandir}/man1/unrar.1*
 
+%files -n libunrar
+%defattr(-,root,root,-)
+%doc license.txt readme.txt
+%{_libdir}/*.so.*
+
+%files -n libunrar-devel
+%defattr(-,root,root,-)
+%doc license.txt readme.txt
+%{_includedir}/*
+%{_libdir}/*.so
+
 
 %changelog
+* Sat Oct 25 2008 Andreas Thienemann <andreas@bawue.net> - 3.7.8-3
+- Added libunrar sub-packages
+- Clarified license
+- Added unrar robustness patches
+
 * Thu Jul 24 2008 Conrad Meyer <konrad@tylerc.org> - 3.7.8-2
 - Import into RPM Fusion.
 
