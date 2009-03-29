@@ -3,7 +3,7 @@
 
 Name:           unrar
 Version:        3.7.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -92,6 +92,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 3.7.8-4
+- rebuild for new F11 features
+
 * Sat Oct 25 2008 Andreas Thienemann <andreas@bawue.net> - 3.7.8-3
 - Added libunrar sub-packages
 - Clarified license
