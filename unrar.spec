@@ -7,7 +7,6 @@ Group:          Applications/Archiving
 URL:            http://www.rarlab.com/rar_archiver.htm
 Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 Patch0:         http://ftp.debian.org/debian/pool/non-free/u/unrar-nonfree/unrar-nonfree_3.8.5-2.diff.gz
-Patch1:         unrar-3.8.5-fixes.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -40,7 +39,6 @@ developing applications that use libunrar.
 %prep
 %setup -q -n %{name}
 %patch0 -p1 -b .deb
-%patch1 -p1 -b .fix
 
 
 %build
