@@ -1,16 +1,13 @@
-# Might be needed to apply fuzzy patches with recent rpm
-#%%define _default_patch_fuzz 2
-
 Name:           unrar
-Version:        3.7.8
-Release:        4%{?dist}
+Version:        3.8.5
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
 URL:            http://www.rarlab.com/rar_archiver.htm
 Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
-Patch0:         http://ftp.debian.org/debian/pool/non-free/u/unrar-nonfree/unrar-nonfree_3.7.3-1.diff.gz
-Patch1:         unrar-3.7.8-fixes.patch
+Patch0:         http://ftp.debian.org/debian/pool/non-free/u/unrar-nonfree/unrar-nonfree_3.8.5-2.diff.gz
+Patch1:         unrar-3.8.5-fixes.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -42,7 +39,7 @@ developing applications that use libunrar.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1
+%patch0 -p1 -b .deb
 %patch1 -p1 -b .fix
 
 
@@ -55,17 +52,30 @@ make %{?_smp_mflags} -f makefile.unix lib \
 
 %install
 rm -rf %{buildroot}
-install -Dpm 755 unrar %{buildroot}%{_bindir}/unrar
-install -Dpm 644 debian/unrar.1 %{buildroot}%{_mandir}/man1/unrar.1
-install -Dpm 755 libunrar.so.3.7 %{buildroot}%{_libdir}/libunrar.so.3.7
+install -Dpm 755 unrar %{buildroot}%{_bindir}/unrar-nonfree
+install -Dpm 644 debian/unrar-nonfree.1 %{buildroot}%{_mandir}/man1/unrar-nonfree.1
+install -Dpm 755 libunrar.so.3.8 %{buildroot}%{_libdir}/libunrar.so.3.8
 install -Dpm 644 dll.hpp %{buildroot}/%{_includedir}/unrar/dll.hpp
-ln -s libunrar.so.3.7 %{buildroot}%{_libdir}/libunrar.so.3
-ln -s libunrar.so.3 %{buildroot}%{_libdir}/libunrar.so
+ln -s libunrar.so.3.8 %{buildroot}%{_libdir}/libunrar.so
+
+# handle alternatives
+touch %{buildroot}%{_bindir}/unrar
+
 
 
 %clean
 rm -rf %{buildroot}
 
+
+%post
+%{_sbindir}/alternatives \
+        --install %{_bindir}/unrar unrar %{_bindir}/unrar-nonfree 50 || :
+
+%preun
+if [ "$1" -eq 0 ]; then
+        %{_sbindir}/alternatives \
+                --remove un%{name} %{_bindir}/un%{name}-nonfree || :
+fi
 
 %post -n libunrar -p /sbin/ldconfig
 
@@ -76,8 +86,9 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc license.txt readme.txt
-%{_bindir}/unrar
-%{_mandir}/man1/unrar.1*
+%ghost %{_bindir}/unrar
+%{_bindir}/unrar-nonfree
+%{_mandir}/man1/unrar-nonfree.1*
 
 %files -n libunrar
 %defattr(-,root,root,-)
@@ -92,6 +103,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Jul 8 2009 Conrad Meyer <konrad@tylerc.org> - 3.8.5-1
+- Bump to 3.8.5.
+
 * Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 3.7.8-4
 - rebuild for new F11 features
 
