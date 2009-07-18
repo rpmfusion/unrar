@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        3.8.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -52,9 +52,8 @@ make %{?_smp_mflags} -f makefile.unix lib \
 rm -rf %{buildroot}
 install -Dpm 755 unrar %{buildroot}%{_bindir}/unrar-nonfree
 install -Dpm 644 debian/unrar-nonfree.1 %{buildroot}%{_mandir}/man1/unrar-nonfree.1
-install -Dpm 755 libunrar.so.3.8 %{buildroot}%{_libdir}/libunrar.so.3.8
+install -Dpm 755 libunrar.so %{buildroot}%{_libdir}/libunrar.so
 install -Dpm 644 dll.hpp %{buildroot}/%{_includedir}/unrar/dll.hpp
-ln -s libunrar.so.3.8 %{buildroot}%{_libdir}/libunrar.so
 
 # handle alternatives
 touch %{buildroot}%{_bindir}/unrar
@@ -91,16 +90,18 @@ fi
 %files -n libunrar
 %defattr(-,root,root,-)
 %doc license.txt readme.txt
-%{_libdir}/*.so.*
+%{_libdir}/*.so
 
 %files -n libunrar-devel
 %defattr(-,root,root,-)
 %doc license.txt readme.txt
 %{_includedir}/*
-%{_libdir}/*.so
 
 
 %changelog
+* Fri Jul 17 2009 Conrad Meyer <konrad@tylerc.org> - 3.8.5-2
+- Fix breakages introduced by dropping the versioned SONAME patch.
+
 * Wed Jul 8 2009 Conrad Meyer <konrad@tylerc.org> - 3.8.5-1
 - Bump to 3.8.5.
 
