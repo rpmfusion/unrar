@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        3.8.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -8,6 +8,8 @@ URL:            http://www.rarlab.com/rar_archiver.htm
 Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 Patch0:         http://ftp.debian.org/debian/pool/non-free/u/unrar-nonfree/unrar-nonfree_3.8.5-2.diff.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires(post): chkconfig
+Requires(preun): chkconfig
 
 
 %description
@@ -99,6 +101,9 @@ fi
 
 
 %changelog
+* Fri Nov 20 2009 Conrad Meyer <konrad@tylerc.org> - 3.8.5-3
+- Add missing post/preun requires on chkconfig (#956).
+
 * Fri Jul 17 2009 Conrad Meyer <konrad@tylerc.org> - 3.8.5-2
 - Fix breakages introduced by dropping the versioned SONAME patch.
 
