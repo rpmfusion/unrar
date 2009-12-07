@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        3.8.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -68,7 +68,9 @@ rm -rf %{buildroot}
 
 %post
 %{_sbindir}/alternatives \
-    --install %{_bindir}/unrar unrar %{_bindir}/unrar-nonfree 50 || :
+    --install %{_bindir}/unrar unrar %{_bindir}/unrar-nonfree 50 \
+    --slave %{_mandir}/man1/unrar.1.gz unrar.1.gz \
+    %{_mandir}/man1/unrar-nonfree.1.gz || :
 
 %preun
 if [ "$1" -eq 0 ]; then
@@ -101,6 +103,9 @@ fi
 
 
 %changelog
+* Sun Dec 6 2009 Conrad Meyer <konrad@tylerc.org> - 3.8.5-5
+- Fix post to use alternatives to manage unrar manpage as well.
+
 * Mon Nov 30 2009 Conrad Meyer <konrad@tylerc.org> - 3.8.5-4
 - Fix preun to refer to the correct alternatives files.
 
