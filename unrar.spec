@@ -39,7 +39,6 @@ developing applications that use libunrar.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1 -b .deb
 
 
 %build
