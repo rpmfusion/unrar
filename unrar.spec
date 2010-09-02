@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        3.9.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
