@@ -8,6 +8,8 @@ URL:            http://www.rarlab.com/rar_archiver.htm
 Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Patch to resolve issues noted in #1385:
 Patch0:	   	unrar-3.9.10-missing-recvol-symbols.patch
+# Debian patch for man page:
+Patch1:         unrar-nonfree_3.8.5-2.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -42,6 +44,7 @@ developing applications that use libunrar.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1
 
 
 %build

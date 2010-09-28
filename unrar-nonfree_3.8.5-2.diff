@@ -1,0 +1,495 @@
+--- unrar-nonfree-3.8.5.orig/makefile.unix
++++ unrar-nonfree-3.8.5/makefile.unix
+@@ -117,7 +117,7 @@
+ uninstall:	uninstall-unrar
+ 
+ clean:
+-	@rm -f *.o *.bak *~
++	@rm -f *.o *.bak *~ unrar
+ 
+ unrar:	$(OBJECTS) $(UNRAR_OBJ)
+ 	@rm -f unrar
+--- unrar-nonfree-3.8.5.orig/debian/changelog
++++ unrar-nonfree-3.8.5/debian/changelog
+@@ -0,0 +1,212 @@
++unrar-nonfree (1:3.8.5-2) unstable; urgency=low
++
++  * Updated to new DD account
++    - New Maintainer - Use debian.org email address
++    - Removed DMUA - not needed anymore
++  * Moved Non-free autobuild comment to copyright (Closes: 515530)
++  * Changed dh_clean -k to dh_prep
++
++ -- Martin Meredith <mez@debian.org>  Sun, 15 Feb 2009 23:04:41 +0000
++
++unrar-nonfree (1:3.8.5-1) unstable; urgency=low
++
++  * New upstream release
++
++ -- Martin Meredith <mez@ubuntu.com>  Wed, 10 Dec 2008 23:54:59 +0000
++
++unrar-nonfree (1:3.8.4-1) unstable; urgency=low
++
++  * New upstream release
++
++ -- Martin Meredith <mez@ubuntu.com>  Fri, 17 Oct 2008 13:31:48 +0100
++
++unrar-nonfree (1:3.8.2-1) unstable; urgency=low
++
++  * New upstream release (Closes: #485490)
++  * Upstream fixed issue with not listening for /dev/null on stdin
++                                                    (Closes: #452805)
++  * Bumped standards version
++  * Bumped debhelper version
++  * Fixed manpage hyphen problem
++  * Added DM-Upload-Allowed Control Field
++
++ -- Martin Meredith <mez@ubuntu.com>  Mon, 16 Jun 2008 19:21:24 +0100
++
++unrar-nonfree (1:3.7.8-2) unstable; urgency=low
++
++  * Changed "AV" in manpage (Closes: #434802)
++  * Bumped Standards Version
++
++ -- Martin Meredith <mez@ubuntu.com>  Wed, 02 Jan 2008 01:37:50 +0000
++
++unrar-nonfree (1:3.7.8-1) unstable; urgency=low
++
++  * New upstream release
++  * Updated to use /etc/alternatives (Closes: #414413)
++  * Added Watch File
++
++ -- Martin Meredith <mez@ubuntu.com>  Fri, 23 Nov 2007 20:47:45 +0000
++
++unrar-nonfree (1:3.7.3-1.1) unstable; urgency=high
++
++  * Non-maintainer upload by testing security team.
++  * Fixed integer signedness error in SET_VALUE function in
++    rarvm.cpp (CVE-2007-3726) (Closes: #437703).
++
++ -- Nico Golde <nion@debian.org>  Thu, 06 Sep 2007 13:30:31 +0200
++
++unrar-nonfree (1:3.7.3-1) unstable; urgency=high
++
++  * New upstream release (Closes: #410580)
++
++ -- Martin Meredith <mez@ubuntu.com>  Mon, 12 Feb 2007 02:47:55 +0000
++
++unrar-nonfree (1:3.7.2-1) unstable; urgency=low
++
++  * New upstream release (Closes: #328166, #352089)
++  * Updated Compat level and debhelper B-D
++  * Updated Standards Version
++  * Added Stuff for amd64 auto-build (Closes: #335824)
++  * Updated download location in copyright
++
++ -- Martin Meredith <mez@ubuntu.com>  Wed, 17 Jan 2007 06:42:02 +0000
++
++unrar-nonfree (1:3.5.4-1) unstable; urgency=low
++
++  * New Maintainer (Closes: 350833)
++  * Updated dh_compat level
++
++ -- Martin Meredith <mez@ubuntu.com>  Wed, 1 Feb 2006 11:20:57 +0000 
++
++unrar-nonfree (1:3.6.8-0ubuntu2) feisty; urgency=low
++
++  * Fix Maintainer Field to currect maintainer (1:3.5.4-1 was not synced from debian)
++
++ -- Martin Meredith <mez@ubuntu.com>  Tue,  7 Nov 2006 16:41:45 +0000
++
++unrar-nonfree (1:3.6.8-0ubuntu1) feisty; urgency=low
++
++  * New upstream release
++
++ -- Martin Meredith <mez@ubuntu.com>  Wed,  1 Nov 2006 11:58:20 +0000
++
++unrar-nonfree (1:3.5.4-0.1) unstable; urgency=low
++
++  * Non-maintainer upload.
++  * New upstream release.
++    + Builds fine on amd64 (Closes: #288751, #335824).
++    + The last upload was pre-sarge and not yet rebuilt for the libstdc++
++      transition (Closes: #341753).
++  * Bump Standards-Version.
++
++ -- Christoph Berg <myon@debian.org>  Thu,  5 Jan 2006 20:51:54 +0100
++
++unrar-nonfree (1:3.5.2-0.1) unstable; urgency=medium
++
++  * Non-Maintainer Upload
++  * New upstream (Closes: #302986)
++    + License no longer prohibits packaging changes (Closes: #308272)
++    + Dropped security patch, as it has been incorporated upstream
++  * Make if very clear in copyright that you can't use the source code for
++    recreating rar compression algorithm
++  * Renamed binary package to 'unrar' to replace the still-in-development free
++    'equivalent', add epoch to cope with version increase too
++    (Closes: #265045)
++
++ -- Jeroen van Wolffelaar <jeroen@wolffelaar.nl>  Sun, 22 May 2005 11:47:41 +0200
++
++unrar-nonfree (3.4.3-1) unstable; urgency=low
++
++  * New upstream release 
++  * Applied Ulf Harnhammar's patch to solve overflows when $HOME was too
++    large (closes: #280263).
++
++ -- Chris Anderson <chris@nullcode.org>  Wed,  1 Dec 2004 02:22:56 +0000
++
++unrar-nonfree (3.4.2-1) unstable; urgency=low
++
++  * New upstream release
++  * Updated debian/copyright
++  * Removed commented / obsolete lines in debian/rules
++  * Modified makefile.unix to remove the unrar binary on clean
++  * Updated package to properly use debhelper v4 
++
++ -- Chris Anderson <chris@nullcode.org>  Thu, 26 Aug 2004 01:19:48 +0000
++
++unrar-nonfree (3.3.6-2) unstable; urgency=low
++
++  * New maintainer.
++  * Removed g++ build dependency.
++  * Changed makefile's CXX to g++ from g++-3.3 (closes: #239188).
++  * Updated description to reflect new name.
++  * Removed unneeded my-end.h from debian/ and debian/rules. 
++
++ -- Chris Anderson <chris@nullcode.org>  Fri,  2 Jul 2004 01:53:47 +0000
++
++unrar-nonfree (3.3.6-1.2) unstable; urgency=low
++
++  * NMU.
++  * Oops. -1.1 was uploaded as Debian-native by mistake. Fix this mess by
++    renaming the orig tarball consistently. (sorry)
++
++ -- Robert Millan <rmh@debian.org>  Sat, 19 Jun 2004 15:36:07 +0200
++
++unrar-nonfree (3.3.6-1.1) unstable; urgency=low
++
++  * NMU.
++  * Rename package to unrar-nonfree. (Closes: 240949)
++    - debian/control: Set Source, Package, Replaces, Provides and Conflicts
++      accordingly.
++
++ -- Robert Millan <rmh@debian.org>  Wed,  2 Jun 2004 20:11:51 +0200
++
++unrar (3.3.6-1) unstable; urgency=low
++
++  * New upstream version.
++    - This should (closes: #228128) /me crosses fingers
++
++ -- Petr Cech <cech@debian.org>  Tue,  9 Mar 2004 08:51:30 +0100
++
++unrar (3.3.2-1) unstable; urgency=low
++
++  * New upstream release.
++  * User g++-3.3
++
++ -- Petr Cech <cech@debian.org>  Mon,  8 Dec 2003 14:41:13 +0100
++
++unrar (3.2.2-1) unstable; urgency=low
++
++  * New upstream release (closes: #194962)
++  * Use g++-3.2
++
++ -- Petr Cech <cech@debian.org>  Tue, 10 Jun 2003 13:34:41 +0200
++
++unrar (3.1.3-1) unstable; urgency=low
++
++  * New upstream version.
++  * Remove mentionig of Rara.txt (closes: #174590)
++
++ -- Petr Cech <cech@debian.org>  Mon, 13 Jan 2003 14:54:35 +0100
++
++unrar (3.0-2) unstable; urgency=low
++
++  * Move debheler from Depends: to Build-Depends: (closes: #156062). Sorry
++  * It's already packaged (closes: #157426)
++  * Doesn't Build-dep on itself anymore (closes: #93636)
++
++ -- Petr Cech <cech@debian.org>  Tue, 20 Aug 2002 21:52:28 +0200
++
++unrar (3.0-1) unstable; urgency=low
++
++  * New upstream release.
++  * Build-Depend on debhelper.
++  * Standards-Version: 3.5.6.
++
++ -- Petr Cech <cech@debian.org>  Thu,  6 Jun 2002 22:57:29 +0200
++
++unrar (2.50-1) unstable; urgency=low
++
++  * Initial release.
++  * build against glibc2.
++
++ -- Petr Cech <cech@debian.org>  Thu, 16 Mar 2000 18:51:33 +0100
+--- unrar-nonfree-3.8.5.orig/debian/unrar-nonfree.1
++++ unrar-nonfree-3.8.5/debian/unrar-nonfree.1
+@@ -0,0 +1,98 @@
++.TH UNRAR 1 02.11.1999 "" "RAR archiver"
++.SH NAME
++unrar \- extract files from rar archives
++.SH SYNOPSIS
++.B unrar
++.I "<command> [-<switch 1> -<switch N>] archive [files...] [path\...]"
++.SH "DESCRIPTION"
++This manual page documents briefly the
++.BR unrar
++command.
++.br
++This manual page was written for the Debian GNU/Linux distribution
++because the original program does not have a manual page.
++.br
++Commands and options described here are as of unrar 2.02.
++.SH OPTIONS
++After the program name comes a command and then optional switches with
++dashes before them.
++A summary of commands is included below.
++For a complete description, run
++.BR unrar
++without options.
++.TP
++.B e
++Extract files to current directory.
++.TP
++.B l
++List archive content.
++.TP
++.B p
++Print file to stdout.
++.TP
++.B t
++Test archive files.
++.TP
++.B v
++Verbosely list archive.
++.TP
++.B x
++Extract files with full path.
++.SH SWITCHES
++.BR NOTE:
++Every switch must be separated by a whitespace. You cannot put them
++together.
++.TP
++.B -av-
++Disable Authenticity Verification check.
++.TP
++.B -c-
++Disable comments show.
++.TP
++.B -f
++Freshen files.
++.TP
++.B -kb
++Keep broken extracted files.
++.TP
++.B -ierr
++Send all messages to stderr.
++.TP
++.B -inul
++Disable all messages.
++.TP
++.B -o+
++Overwrite existing files.
++.TP
++.B -o-
++Do not overwrite existing files.
++.TP
++.B -p<password>
++Set password.
++.TP
++.B -p-
++Do not query password.
++.TP
++.B -r
++Recurse subdirectories.
++.TP
++.B -u
++Update files.
++.TP
++.B -v
++List all volumes.
++.TP
++.B -x<file>
++Exclude specified file.
++.TP
++.B -x@<list>
++Exclude files in specified list file.
++.TP
++.B -x@
++Read file names to exclude from stdin.
++.TP
++.B -y
++Assume Yes on all queries.
++.SH AUTHOR
++This manual page was written by Petr Cech <cech@debian.org> according
++to "unrar \-h" for the Debian GNU/Linux system (but may be used by others).
+--- unrar-nonfree-3.8.5.orig/debian/copyright
++++ unrar-nonfree-3.8.5/debian/copyright
+@@ -0,0 +1,60 @@
++This package was debianized by Petr Cech <cech@debian.org> on
++Thu, 16 Mar 2000 18:51:33 +0100.
++Further modifications have been made by Chris Anderson <chris@nullcode.org>
++on Wed Aug 25 19:03:47 EDT 2004
++
++It was downloaded from http://www.rarlabs.com/rar_add.htm
++
++Copyright:
++Copyright (c) 1993-2005 Alexander L. Roshal
++
++NOTE: this software is non-free, therefore carefully read this license before
++doing anything with it. In particular, this source code may not be used for
++recreating the rar compression algorithm.
++
++Full license follows:
++
++ ******    *****   ******   unRAR - free utility for RAR archives
++ **   **  **   **  **   **  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ******   *******  ******    License for use and distribution of
++ **   **  **   **  **   **   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ **   **  **   **  **   **         FREE portable version
++                                   ~~~~~~~~~~~~~~~~~~~~~
++
++      The source code of unRAR utility is freeware. This means:
++
++   1. All copyrights to RAR and the utility unRAR are exclusively
++      owned by the author - Alexander Roshal.
++
++   2. The unRAR sources may be used in any software to handle RAR
++      archives without limitations free of charge, but cannot be used
++      to re-create the RAR compression algorithm, which is proprietary.
++      Distribution of modified unRAR sources in separate form or as a
++      part of other software is permitted, provided that it is clearly
++      stated in the documentation and source comments that the code may
++      not be used to develop a RAR (WinRAR) compatible archiver.
++
++   3. The unRAR utility may be freely distributed. No person or company 
++      may charge a fee for the distribution of unRAR without written
++      permission from the copyright holder.
++
++   4. THE RAR ARCHIVER AND THE UNRAR UTILITY ARE DISTRIBUTED "AS IS".
++      NO WARRANTY OF ANY KIND IS EXPRESSED OR IMPLIED.  YOU USE AT 
++      YOUR OWN RISK. THE AUTHOR WILL NOT BE LIABLE FOR DATA LOSS, 
++      DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING
++      OR MISUSING THIS SOFTWARE.
++
++   5. Installing and using the unRAR utility signifies acceptance of
++      these terms and conditions of the license.
++
++   6. If you don't agree with terms of the license you must remove
++      unRAR files from your storage devices and cease to use the
++      utility.
++
++      Thank you for your interest in RAR and unRAR.
++
++
++                                            Alexander L. Roshal
++
++This package is auto-buildable
++
+--- unrar-nonfree-3.8.5.orig/debian/postinst
++++ unrar-nonfree-3.8.5/debian/postinst
+@@ -0,0 +1,11 @@
++#!/bin/sh
++
++set -e
++
++if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
++	update-alternatives --install /usr/bin/unrar unrar /usr/bin/unrar-nonfree 40 \
++		--slave /usr/share/man/man1/unrar.1.gz unrar.1.gz \
++		/usr/share/man/man1/unrar-nonfree.1.gz
++fi
++
++#DEBHELPER#
+--- unrar-nonfree-3.8.5.orig/debian/compat
++++ unrar-nonfree-3.8.5/debian/compat
+@@ -0,0 +1 @@
++7
+--- unrar-nonfree-3.8.5.orig/debian/control
++++ unrar-nonfree-3.8.5/debian/control
+@@ -0,0 +1,16 @@
++Source: unrar-nonfree
++Section: non-free/utils
++Priority: optional
++Maintainer: Martin Meredith <mez@debian.org>
++Build-Depends: debhelper (>= 7)
++Standards-Version: 3.8.0
++XS-Autobuild: yes
++
++Package: unrar
++Architecture: any
++Depends: ${shlibs:Depends}
++Conflicts: rar (<= 2.60-1)
++Homepage: http://www.rarlabs.com/
++Description: Unarchiver for .rar files (non-free version)
++ Unrar can extract files from .rar archives. If you want to create .rar
++ archives, install package rar.
+--- unrar-nonfree-3.8.5.orig/debian/rules
++++ unrar-nonfree-3.8.5/debian/rules
+@@ -0,0 +1,43 @@
++#!/usr/bin/make -f
++# Made with the aid of dh_make, by Petr Cech.
++# Sample debian/rules that uses debhelper. GNU copyright 1997 by Joey Hess.
++# Some lines taken from debmake, by Christoph Lameter.
++
++build: 
++	dh_testdir
++	make -f makefile.unix
++
++clean:
++	dh_testdir
++	dh_testroot
++
++	make -f makefile.unix clean
++	dh_clean
++
++# Build architecture-independent files here.
++binary-indep: build
++# We have nothing to do by default.
++
++# Build architecture-dependent files here.
++binary-arch: build
++	dh_testdir
++	dh_testroot
++	dh_prep
++	dh_installdirs
++
++	install -o root -g root -s -m 0755 unrar debian/unrar/usr/bin/unrar-nonfree
++
++	dh_installdocs
++	dh_installman debian/unrar-nonfree.1
++	dh_installchangelogs
++	dh_strip
++	dh_compress
++	dh_fixperms
++	dh_installdeb
++	dh_shlibdeps
++	dh_gencontrol
++	dh_md5sums
++	dh_builddeb
++
++binary: binary-indep binary-arch
++.PHONY: build clean binary-indep binary-arch binary
+--- unrar-nonfree-3.8.5.orig/debian/watch
++++ unrar-nonfree-3.8.5/debian/watch
+@@ -0,0 +1,3 @@
++version=3
++
++http://www.rarlab.com/rar_add.htm http://www.rarlab.com/rar/unrarsrc-(.*)\.tar\.gz	debian	uupdate
+--- unrar-nonfree-3.8.5.orig/debian/prerm
++++ unrar-nonfree-3.8.5/debian/prerm
+@@ -0,0 +1,9 @@
++#!/bin/sh
++
++set -e
++
++if [ "$1" != "upgrade" ]; then
++	update-alternatives --remove unrar /usr/bin/unrar-nonfree
++fi
++
++#DEBHELPER#
+--- unrar-nonfree-3.8.5.orig/debian/dirs
++++ unrar-nonfree-3.8.5/debian/dirs
+@@ -0,0 +1 @@
++usr/bin
