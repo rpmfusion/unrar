@@ -6,6 +6,8 @@ License:        Freeware with further limitations
 Group:          Applications/Archiving
 URL:            http://www.rarlab.com/rar_archiver.htm
 Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
+# Patch to resolve issues noted in #1385:
+Patch0:	   	unrar-3.9.10-missing-recvol-symbols.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -39,6 +41,7 @@ developing applications that use libunrar.
 
 %prep
 %setup -q -n %{name}
+%patch0
 
 
 %build
@@ -101,6 +104,9 @@ fi
 
 
 %changelog
+* Tue Sep 28 2010 Conrad Meyer <konrad@tylerc.org> - 3.9.10-2
+- Patch to fix unresolved symbol issues (#1385).
+
 * Thu Sep 2 2010 Conrad Meyer <konrad@tylerc.org> - 3.9.10-1
 - Bump to 3.9.10.
 
