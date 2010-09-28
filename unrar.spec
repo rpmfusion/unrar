@@ -41,7 +41,7 @@ developing applications that use libunrar.
 
 %prep
 %setup -q -n %{name}
-%patch0
+%patch0 -p1
 
 
 %build
