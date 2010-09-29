@@ -1,12 +1,15 @@
 Name:           unrar
-Version:        3.8.5
-Release:        5%{?dist}
+Version:        3.9.10
+Release:        3%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
 URL:            http://www.rarlab.com/rar_archiver.htm
 Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
-Patch0:         http://ftp.debian.org/debian/pool/non-free/u/unrar-nonfree/unrar-nonfree_3.8.5-2.diff.gz
+# Patch to resolve issues noted in #1385:
+Patch0:	   	unrar-3.9.10-missing-recvol-symbols.patch
+# Debian patch for man page:
+Patch1:         unrar-nonfree_3.8.5-2.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -40,7 +43,8 @@ developing applications that use libunrar.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1 -b .deb
+%patch0 -p1
+%patch1 -p1
 
 
 %build
@@ -103,6 +107,15 @@ fi
 
 
 %changelog
+* Tue Sep 28 2010 Conrad Meyer <konrad@tylerc.org> - 3.9.10-3
+- Patch to fix unresolved symbol issues (#1385).
+
+* Thu Sep 2 2010 Conrad Meyer <konrad@tylerc.org> - 3.9.10-1
+- Bump to 3.9.10.
+
+* Sun Feb 21 2010 Conrad Meyer <konrad@tylerc.org> - 3.9.9-1
+- Bump to 3.9.9.
+
 * Sun Dec 6 2009 Conrad Meyer <konrad@tylerc.org> - 3.8.5-5
 - Fix post to use alternatives to manage unrar manpage as well.
 
