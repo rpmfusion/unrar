@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        4.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -107,6 +107,9 @@ fi
 
 
 %changelog
+* Thu Feb 09 2012 Nicolas Chauvet <kwizart@gmail.com> - 4.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Sat Jul 9 2011 Conrad Meyer <konrad@tylerc.org> - 4.0.7-1
 - Bump to new version.
 
