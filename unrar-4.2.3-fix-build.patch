@@ -1,0 +1,14 @@
+--- unrar/makefile.unix.orig	2012-05-15 02:31:03.000000000 -0300
++++ unrar/makefile.unix	2012-05-28 11:52:22.544857061 -0300
+@@ -117 +117 @@
+-	@rm -f *.o *.bak *~
++	@rm -f *.o *.bak *~ unrar
+@@ -119 +119 @@
+-unrar:	clean $(OBJECTS) $(UNRAR_OBJ)
++unrar:	$(OBJECTS) $(UNRAR_OBJ)
+@@ -125 +125 @@
+-sfx:	clean $(OBJECTS)
++sfx:	$(OBJECTS)
+@@ -132 +132 @@
+-lib:	clean $(OBJECTS) $(LIB_OBJ)
++lib:	$(OBJECTS) $(LIB_OBJ)

@@ -1,15 +1,16 @@
 Name:           unrar
-Version:        4.0.7
-Release:        3%{?dist}
+Version:        4.2.3
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
-URL:            http://www.rarlab.com/rar_archiver.htm
-Source0:        http://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
+URL:            http://www.rarlab.com/rar_add.htm
+Source0:        ftp://ftp.rarlab.com/rar/unrarsrc-%{version}.tar.gz
+# Man page from Debian
+Source1:        unrar-nonfree.1
 # Patch to resolve issues noted in #1385:
-Patch0:	   	unrar-3.9.10-missing-recvol-symbols.patch
-# Debian patch for man page:
-Patch1:         unrar-nonfree_3.8.5-2.diff
+Patch0:         unrar-3.9.10-missing-recvol-symbols.patch
+Patch1:         unrar-4.2.3-fix-build.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -45,6 +46,7 @@ developing applications that use libunrar.
 %setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1
+cp -p %SOURCE1 .
 
 
 %build
@@ -57,9 +59,12 @@ make %{?_smp_mflags} -f makefile.unix lib \
 %install
 rm -rf %{buildroot}
 install -Dpm 755 unrar %{buildroot}%{_bindir}/unrar-nonfree
-install -Dpm 644 debian/unrar-nonfree.1 %{buildroot}%{_mandir}/man1/unrar-nonfree.1
+install -Dpm 644 unrar-nonfree.1 %{buildroot}%{_mandir}/man1/unrar-nonfree.1
 install -Dpm 755 libunrar.so %{buildroot}%{_libdir}/libunrar.so
-install -Dpm 644 dll.hpp %{buildroot}/%{_includedir}/unrar/dll.hpp
+mkdir -p -m 755 %{buildroot}/%{_includedir}/unrar
+for i in *.hpp; do
+    install -Dpm 644 $i %{buildroot}/%{_includedir}/unrar
+done
 
 # handle alternatives
 touch %{buildroot}%{_bindir}/unrar
@@ -107,6 +112,10 @@ fi
 
 
 %changelog
+* Thu May 28 2012 Marcos Mello <marcosfrm AT gmail DOT com> - 4.2.3-1
+- New version
+- Include all header files in the -devel package (#1988)
+
 * Thu Mar 08 2012 Nicolas Chauvet <kwizart@gmail.com> - 4.0.7-3
 - Rebuilt for c++ ABI breakage
 
