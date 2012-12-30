@@ -1,5 +1,5 @@
 Name:           unrar
-Version:        4.2.3
+Version:        4.2.4
 Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
@@ -112,6 +112,10 @@ fi
 
 
 %changelog
+* Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-1
+- Bump version
+- Fix unrar-4.2.3-fix-build.patch diff to have context
+
 * Thu May 28 2012 Marcos Mello <marcosfrm AT gmail DOT com> - 4.2.3-1
 - New version
 - Include all header files in the -devel package (#1988)
