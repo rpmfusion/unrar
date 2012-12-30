@@ -1,6 +1,8 @@
+%global         date    2012.12.30
+
 Name:           unrar
 Version:        4.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -12,6 +14,7 @@ Source1:        unrar-nonfree.1
 Patch0:         unrar-3.9.10-missing-recvol-symbols.patch
 Patch1:         unrar-4.2.3-fix-build.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
 Requires(post): chkconfig
 Requires(preun): chkconfig
 
@@ -25,6 +28,10 @@ viewing the contents of archives created with the RAR archiver version
 %package -n libunrar
 Summary:        Decompress library for RAR v3 archives
 Group:          System Environment/Libraries
+
+Provides:       unrardate%{_isa} = %{date}
+# Packages using libunrar must Requires this:
+#{?unrardate:Requires: unrardate%{_isa} = %{unrardate}}
 
 %description -n libunrar
 The libunrar library allows programs linking against it to decompress
@@ -69,6 +76,13 @@ done
 # handle alternatives
 touch %{buildroot}%{_bindir}/unrar
 
+# RPM Macros support
+mkdir -p %{buildroot}%{_sysconfdir}/rpm
+cat > %{buildroot}%{_sysconfdir}/rpm/macros.unrar << EOF
+# unrar RPM Macros
+%unrardate    %{date}
+EOF
+touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %clean
@@ -108,10 +122,15 @@ fi
 %files -n libunrar-devel
 %defattr(-,root,root,-)
 %doc license.txt readme.txt
+%config %{_sysconfdir}/rpm/macros.unrar
 %{_includedir}/*
 
 
 %changelog
+* Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-2
+- Add RPM dependency check to ensure dependent packages break at install time
+  rather than use time (#2357) (derived from live555 package)
+
 * Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-1
 - Bump version (#2508)
 - Fix unrar-4.2.3-fix-build.patch diff to have context
