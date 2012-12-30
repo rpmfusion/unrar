@@ -1,8 +1,6 @@
-%global         date    2012.12.30
-
 Name:           unrar
 Version:        4.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -29,9 +27,8 @@ viewing the contents of archives created with the RAR archiver version
 Summary:        Decompress library for RAR v3 archives
 Group:          System Environment/Libraries
 
-Provides:       unrardate%{_isa} = %{date}
 # Packages using libunrar must Requires this:
-#{?unrardate:Requires: unrardate%{_isa} = %{unrardate}}
+#{?unrar_version:Requires: libunrar%{_isa} = %{unrar_version}}
 
 %description -n libunrar
 The libunrar library allows programs linking against it to decompress
@@ -80,7 +77,7 @@ touch %{buildroot}%{_bindir}/unrar
 mkdir -p %{buildroot}%{_sysconfdir}/rpm
 cat > %{buildroot}%{_sysconfdir}/rpm/macros.unrar << EOF
 # unrar RPM Macros
-%unrardate    %{date}
+%unrar_version    %{version}
 EOF
 touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
@@ -127,6 +124,9 @@ fi
 
 
 %changelog
+* Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-3
+- Try at #2357 again :). Instead of arbitrary date, use rpm %%version
+
 * Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-2
 - Add RPM dependency check to ensure dependent packages break at install time
   rather than use time (#2357) (derived from live555 package)
