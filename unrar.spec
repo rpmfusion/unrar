@@ -113,7 +113,7 @@ fi
 
 %changelog
 * Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-1
-- Bump version
+- Bump version (#2508)
 - Fix unrar-4.2.3-fix-build.patch diff to have context
 
 * Thu May 28 2012 Marcos Mello <marcosfrm AT gmail DOT com> - 4.2.3-1
