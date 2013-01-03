@@ -1,6 +1,6 @@
 Name:           unrar
-Version:        4.2.3
-Release:        1%{?dist}
+Version:        4.2.4
+Release:        3%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -12,6 +12,7 @@ Source1:        unrar-nonfree.1
 Patch0:         unrar-3.9.10-missing-recvol-symbols.patch
 Patch1:         unrar-4.2.3-fix-build.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
 Requires(post): chkconfig
 Requires(preun): chkconfig
 
@@ -25,6 +26,9 @@ viewing the contents of archives created with the RAR archiver version
 %package -n libunrar
 Summary:        Decompress library for RAR v3 archives
 Group:          System Environment/Libraries
+
+# Packages using libunrar must Requires this:
+#{?unrar_version:Requires: libunrar%{_isa} = %{unrar_version}}
 
 %description -n libunrar
 The libunrar library allows programs linking against it to decompress
@@ -69,6 +73,13 @@ done
 # handle alternatives
 touch %{buildroot}%{_bindir}/unrar
 
+# RPM Macros support
+mkdir -p %{buildroot}%{_sysconfdir}/rpm
+cat > %{buildroot}%{_sysconfdir}/rpm/macros.unrar << EOF
+# unrar RPM Macros
+%unrar_version    %{version}
+EOF
+touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %clean
@@ -108,10 +119,22 @@ fi
 %files -n libunrar-devel
 %defattr(-,root,root,-)
 %doc license.txt readme.txt
+%config %{_sysconfdir}/rpm/macros.unrar
 %{_includedir}/*
 
 
 %changelog
+* Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-3
+- Try at #2357 again :). Instead of arbitrary date, use rpm %%version
+
+* Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-2
+- Add RPM dependency check to ensure dependent packages break at install time
+  rather than use time (#2357) (derived from live555 package)
+
+* Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-1
+- Bump version (#2508)
+- Fix unrar-4.2.3-fix-build.patch diff to have context
+
 * Thu May 28 2012 Marcos Mello <marcosfrm AT gmail DOT com> - 4.2.3-1
 - New version
 - Include all header files in the -devel package (#1988)
