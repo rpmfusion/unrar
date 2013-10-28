@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        4.2.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -10,7 +10,6 @@ Source0:        ftp://ftp.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 Source1:        unrar-nonfree.1
 # Patch to resolve issues noted in #1385:
 Patch0:         unrar-3.9.10-missing-recvol-symbols.patch
-Patch1:         unrar-4.2.3-fix-build.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires(post): chkconfig
@@ -49,13 +48,13 @@ developing applications that use libunrar.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
-%patch1 -p1
 cp -p %SOURCE1 .
 
 
 %build
 make %{?_smp_mflags} -f makefile.unix \
   CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" STRIP=: RANLIB=ranlib
+make %{?_smp_mflags} -f makefile.unix clean
 make %{?_smp_mflags} -f makefile.unix lib \
   CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" STRIP=: RANLIB=ranlib
 
@@ -124,6 +123,10 @@ fi
 
 
 %changelog
+* Mon Oct 28 2013 Conrad Meyer <konrad@tylerc.org> - 4.2.4-4
+- Remove unrar-4.2.3-fix-build.patch, add clean step to %%build
+  per #2869
+
 * Sun Dec 30 2012 Conrad Meyer <konrad@tylerc.org> - 4.2.4-3
 - Try at #2357 again :). Instead of arbitrary date, use rpm %%version
 
