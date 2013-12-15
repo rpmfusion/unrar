@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        5.0.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -35,7 +35,7 @@ existing RAR v3 archives.
 %package -n libunrar-devel
 Summary:        Development files for libunrar
 Group:          Development/Libraries
-Requires:       libunrar = %{version}-%{release}
+Requires:       libunrar%{_isa} = %{version}-%{release}
 Provides:       libunrar3-%{version}
 
 %description -n libunrar-devel
@@ -120,6 +120,9 @@ fi
 
 
 %changelog
+* Sun Dec 15 2013 Nicolas Chauvet <kwizart@gmail.com> - 5.0.12-2
+- Add isa dependency
+
 * Fri Nov 8 2013 Conrad Meyer <cemeyer@uw.edu> - 5.0.12-1
 - Bump to latest upstream
 - Drop patch that doesn't apply anymore
