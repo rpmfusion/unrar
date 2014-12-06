@@ -1,6 +1,6 @@
 Name:           unrar
-Version:        5.0.12
-Release:        3%{?dist}
+Version:        5.2.3
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -120,6 +120,9 @@ fi
 
 
 %changelog
+* Sat Dec 06 2014 Nicolas Chauvet <kwizart@gmail.com> - 5.2.3-1
+- Update to 5.2.3
+
 * Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 5.0.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
