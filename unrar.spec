@@ -1,5 +1,5 @@
 Name:           unrar
-Version:        5.2.3
+Version:        5.4.2
 Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
@@ -120,6 +120,9 @@ fi
 
 
 %changelog
+* Thu Jun 30 2016 Nicolas Chauvet <kwizart@gmail.com> - 5.4.2-1
+- Update to 5.4.2
+
 * Sat Dec 06 2014 Nicolas Chauvet <kwizart@gmail.com> - 5.2.3-1
 - Update to 5.2.3
 
