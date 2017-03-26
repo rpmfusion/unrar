@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        5.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -117,6 +117,9 @@ fi
 
 
 %changelog
+* Sun Mar 26 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 5.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Wed Aug 17 2016 Leigh Scott <leigh123linux@googlemail.com> - 5.4.5-1
 - Update to 5.4.5
 - Harden build
