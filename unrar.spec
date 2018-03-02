@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        5.5.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
@@ -117,6 +117,9 @@ fi
 
 
 %changelog
+* Fri Mar 02 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 5.5.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Thu Jan 18 2018 Hans de Goede <j.w.r.degoede@gmail.com> - 5.5.8-1
 - Update to 5.5.8
 
