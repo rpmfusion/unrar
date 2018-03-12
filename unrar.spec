@@ -1,11 +1,11 @@
 Name:           unrar
-Version:        5.5.8
-Release:        2%{?dist}
+Version:        5.6.1
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 Group:          Applications/Archiving
 URL:            http://www.rarlab.com/rar_add.htm
-Source0:        ftp://ftp.rarlab.com/rar/unrarsrc-%{version}.tar.gz
+Source0:        https://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Man page from Debian
 Source1:        unrar-nonfree.1
 
@@ -91,10 +91,7 @@ if [ "$1" -eq 0 ]; then
       --remove unrar %{_bindir}/unrar-nonfree || :
 fi
 
-%post -n libunrar -p /sbin/ldconfig
-
-
-%postun -n libunrar -p /sbin/ldconfig
+%ldconfig_scriptlets -n libunrar
 
 
 %files
@@ -117,6 +114,9 @@ fi
 
 
 %changelog
+* Mon Mar 12 2018 Leigh Scott <leigh123linux@googlemail.com> - 5.6.1-1
+- Update to 5.6.1
+
 * Fri Mar 02 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 5.5.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
