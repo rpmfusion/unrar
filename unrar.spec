@@ -1,5 +1,5 @@
 Name:           unrar
-Version:        5.6.2
+Version:        5.6.3
 Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
@@ -114,6 +114,9 @@ fi
 
 
 %changelog
+* Wed Apr 25 2018 Leigh Scott <leigh123linux@googlemail.com> - 5.6.3-1
+- Update to 5.6.3
+
 * Sun Apr 01 2018 Leigh Scott <leigh123linux@googlemail.com> - 5.6.2-1
 - Update to 5.6.2
 
