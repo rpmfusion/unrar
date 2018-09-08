@@ -1,9 +1,8 @@
 Name:           unrar
-Version:        5.6.3
-Release:        3%{?dist}
+Version:        5.6.6
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
-Group:          Applications/Archiving
 URL:            http://www.rarlab.com/rar_add.htm
 Source0:        https://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Man page from Debian
@@ -21,7 +20,6 @@ viewing the contents of archives created with the RAR archiver version
 
 %package -n libunrar
 Summary:        Decompress library for RAR v3 archives
-Group:          System Environment/Libraries
 
 # Packages using libunrar must Requires this:
 #{?unrar_version:Requires: libunrar%%{_isa} = %%{unrar_version}}
@@ -33,9 +31,7 @@ existing RAR v3 archives.
 
 %package -n libunrar-devel
 Summary:        Development files for libunrar
-Group:          Development/Libraries
 Requires:       libunrar%{_isa} = %{version}-%{release}
-Provides:       libunrar3-%{version}
 
 %description -n libunrar-devel
 The libunrar-devel package contains libraries and header files for
@@ -114,6 +110,9 @@ fi
 
 
 %changelog
+* Sat Sep 08 2018 Leigh Scott <leigh123linux@googlemail.com> - 5.6.6-1
+- Update to 5.6.6
+
 * Sun Aug 19 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 5.6.3-3
 - Rebuilt for Fedora 29 Mass Rebuild binutils issue
 
