@@ -1,9 +1,9 @@
 Name:           unrar
-Version:        5.6.8
+Version:        5.7.1
 Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
-URL:            http://www.rarlab.com/rar_add.htm
+URL:            https://www.rarlab.com/rar_add.htm
 Source0:        https://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Man page from Debian
 Source1:        unrar-nonfree.1
@@ -46,16 +46,15 @@ cp -p %SOURCE1 .
 
 %build
 make %{?_smp_mflags} -f makefile \
-  CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" LDFLAGS="$RPM_LD_FLAGS -pthread" \
+  CXX="%{__cxx}" CXXFLAGS="%{optflags} -fPIC -DPIC" LDFLAGS="%{?__global_ldflags} -pthread" \
   STRIP=: RANLIB=ranlib
 make %{?_smp_mflags} -f makefile clean
 make %{?_smp_mflags} -f makefile lib \
-  CXX="%{__cxx}" CXXFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC" LDFLAGS="$RPM_LD_FLAGS -pthread" \
+  CXX="%{__cxx}" CXXFLAGS="%{optflags} -fPIC -DPIC" LDFLAGS="%{?__global_ldflags} -pthread" \
   STRIP=: RANLIB=ranlib
 
 
 %install
-rm -rf %{buildroot}
 install -Dpm 755 unrar %{buildroot}%{_bindir}/unrar-nonfree
 install -Dpm 644 unrar-nonfree.1 %{buildroot}%{_mandir}/man1/unrar-nonfree.1
 install -Dpm 755 libunrar.so %{buildroot}%{_libdir}/libunrar.so
@@ -111,6 +110,10 @@ fi
 
 
 %changelog
+* Mon Feb 11 2019 Leigh Scott <leigh123linux@googlemail.com> - 5.7.1-1
+- Update to 5.7.1
+- 
+
 * Wed Jan 02 2019 Sérgio Basto <sergio@serjux.com> - 5.6.8-1
 - Update to 5.6.8
 
