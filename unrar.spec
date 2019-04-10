@@ -1,6 +1,6 @@
 Name:           unrar
-Version:        5.7.1
-Release:        2%{?dist}
+Version:        5.7.4
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
@@ -32,7 +32,7 @@ existing RAR v3 archives.
 
 %package -n libunrar-devel
 Summary:        Development files for libunrar
-Requires:       libunrar%{_isa} = %{version}-%{release}
+Requires:       libunrar%{?_isa} = %{version}-%{release}
 
 %description -n libunrar-devel
 The libunrar-devel package contains libraries and header files for
@@ -45,11 +45,11 @@ cp -p %SOURCE1 .
 
 
 %build
-make %{?_smp_mflags} -f makefile \
+%{make_build} -f makefile \
   CXX="%{__cxx}" CXXFLAGS="%{optflags} -fPIC -DPIC" LDFLAGS="%{?__global_ldflags} -pthread" \
   STRIP=: RANLIB=ranlib
-make %{?_smp_mflags} -f makefile clean
-make %{?_smp_mflags} -f makefile lib \
+%{make_build} -f makefile clean
+%{make_build} -f makefile lib \
   CXX="%{__cxx}" CXXFLAGS="%{optflags} -fPIC -DPIC" LDFLAGS="%{?__global_ldflags} -pthread" \
   STRIP=: RANLIB=ranlib
 
@@ -110,12 +110,14 @@ fi
 
 
 %changelog
+* Wed Apr 10 2019 Leigh Scott <leigh123linux@googlemail.com> - 5.7.4-1
+- Update to 5.7.4
+
 * Tue Mar 05 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 5.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
 * Mon Feb 11 2019 Leigh Scott <leigh123linux@googlemail.com> - 5.7.1-1
 - Update to 5.7.1
-- 
 
 * Wed Jan 02 2019 Sérgio Basto <sergio@serjux.com> - 5.6.8-1
 - Update to 5.6.8
