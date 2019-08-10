@@ -1,6 +1,6 @@
 Name:           unrar
 Version:        5.7.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
@@ -110,6 +110,9 @@ fi
 
 
 %changelog
+* Sat Aug 10 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 5.7.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Wed Apr 10 2019 Leigh Scott <leigh123linux@googlemail.com> - 5.7.4-1
 - Update to 5.7.4
 
