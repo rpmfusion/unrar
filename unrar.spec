@@ -6,11 +6,9 @@ License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
 Source0:        https://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Man page from Debian
-Source1:        unrar-nonfree.1
+Source1:        unrar.1
 
 BuildRequires:  gcc-c++
-Requires(post): chkconfig
-Requires(preun): chkconfig
 
 
 %description
@@ -55,16 +53,13 @@ cp -p %SOURCE1 .
 
 
 %install
-install -Dpm 755 unrar %{buildroot}%{_bindir}/unrar-nonfree
-install -Dpm 644 unrar-nonfree.1 %{buildroot}%{_mandir}/man1/unrar-nonfree.1
+install -Dpm 755 unrar %{buildroot}%{_bindir}/unrar
+install -Dpm 644 unrar.1 %{buildroot}%{_mandir}/man1/unrar.1
 install -Dpm 755 libunrar.so %{buildroot}%{_libdir}/libunrar.so
-mkdir -p -m 755 %{buildroot}/%{_includedir}/unrar
+mkdir -p -m 755 %{buildroot}/%{_includedir}/unrar/
 for i in *.hpp; do
-    install -Dpm 644 $i %{buildroot}/%{_includedir}/unrar
+    install -Dpm 644 $i %{buildroot}/%{_includedir}/unrar/
 done
-
-# handle alternatives
-touch %{buildroot}%{_bindir}/unrar
 
 # RPM Macros support
 mkdir -p %{buildroot}%{_sysconfdir}/rpm
@@ -75,27 +70,14 @@ EOF
 touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
-%post
-%{_sbindir}/alternatives \
-    --install %{_bindir}/unrar unrar %{_bindir}/unrar-nonfree 50 \
-    --slave %{_mandir}/man1/unrar.1.gz unrar.1.gz \
-    %{_mandir}/man1/unrar-nonfree.1.gz || :
-
-%preun
-if [ "$1" -eq 0 ]; then
-  %{_sbindir}/alternatives \
-      --remove unrar %{_bindir}/unrar-nonfree || :
-fi
-
 %ldconfig_scriptlets -n libunrar
 
 
 %files
 %doc readme.txt
 %license license.txt
-%ghost %{_bindir}/unrar
-%{_bindir}/unrar-nonfree
-%{_mandir}/man1/unrar-nonfree.1*
+%{_bindir}/unrar
+%{_mandir}/man1/unrar.1*
 
 %files -n libunrar
 %doc readme.txt
