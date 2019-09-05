@@ -1,6 +1,6 @@
 Name:           unrar
-Version:        5.7.4
-Release:        2%{?dist}
+Version:        5.8.1
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
@@ -88,10 +88,14 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 %doc readme.txt
 %license license.txt
 %config %{_sysconfdir}/rpm/macros.unrar
-%{_includedir}/*
+%{_includedir}/unrar/
 
 
 %changelog
+* Thu Sep 05 2019 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-1
+- Update to 5.8.1
+- Remove alternatives setup
+
 * Sat Aug 10 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 5.7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
