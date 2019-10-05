@@ -1,5 +1,5 @@
 Name:           unrar
-Version:        5.8.1
+Version:        5.8.2
 Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
@@ -92,6 +92,9 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %changelog
+* Sat Oct 05 2019 Leigh Scott <leigh123linux@googlemail.com> - 5.8.2-1
+- Update to 5.8.2
+
 * Thu Sep 05 2019 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-1
 - Update to 5.8.1
 - Remove alternatives setup
