@@ -1,12 +1,13 @@
 Name:           unrar
 Version:        5.9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
 Source0:        https://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Man page from Debian
 Source1:        unrar.1
+Patch0:         unrar-5.9.4-build.patch
 
 BuildRequires:  gcc-c++
 
@@ -38,18 +39,17 @@ developing applications that use libunrar.
 
 
 %prep
-%setup -q -n %{name}
+%autosetup -n %{name}
 cp -p %SOURCE1 .
-sed -i -e 's|@rm -f unrar libunrar.*|@rm -f libunrar.*c|g' makefile
 
 %build
-%{make_build} -f makefile \
+%{make_build} -f makefile unrar \
   CXX="%{__cxx}" CXXFLAGS="%{optflags} -fPIC -DPIC" LDFLAGS="%{?__global_ldflags} -pthread" \
-  STRIP=: RANLIB=ranlib
-%{make_build} -f makefile clean
+  STRIP=:
+
 %{make_build} -f makefile lib \
   CXX="%{__cxx}" CXXFLAGS="%{optflags} -fPIC -DPIC" LDFLAGS="%{?__global_ldflags} -pthread" \
-  STRIP=: RANLIB=ranlib
+  STRIP=:
 
 
 %install
@@ -92,6 +92,9 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %changelog
+* Wed Jul 08 2020 Leigh Scott <leigh123linux@gmail.com> - 5.9.4-2
+- Add build fix
+
 * Wed Jul 08 2020 Leigh Scott <leigh123linux@gmail.com> - 5.9.4-1
 - Update to 5.9.4
 
