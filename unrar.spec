@@ -1,13 +1,13 @@
 Name:           unrar
-Version:        5.9.4
-Release:        3%{?dist}
+Version:        6.0.1
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
 Source0:        https://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Man page from Debian
 Source1:        unrar.1
-Patch0:         unrar-5.9.4-build.patch
+Patch0:         unrar-6.0.1-build.patch
 
 BuildRequires:  gcc-c++
 
@@ -43,13 +43,10 @@ developing applications that use libunrar.
 cp -p %SOURCE1 .
 
 %build
-%{make_build} -f makefile unrar \
-  CXX="%{__cxx}" CXXFLAGS="%{optflags} -fPIC -DPIC" LDFLAGS="%{?__global_ldflags} -pthread" \
-  STRIP=:
+%set_build_flags
+%make_build -f makefile unrar STRIP=:
 
-%{make_build} -f makefile lib \
-  CXX="%{__cxx}" CXXFLAGS="%{optflags} -fPIC -DPIC" LDFLAGS="%{?__global_ldflags} -pthread" \
-  STRIP=:
+%make_build -f makefile lib STRIP=:
 
 
 %install
@@ -92,6 +89,9 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %changelog
+* Mon Oct 26 2020 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
+- Update to 6.0.1
+
 * Wed Aug 19 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 5.9.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 

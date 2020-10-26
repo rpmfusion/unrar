@@ -8,6 +8,21 @@ Gentoo-Bug: https://bugs.gentoo.org/528218
 
 --- a/makefile
 +++ b/makefile
+@@ -3,12 +3,12 @@
+ 
+ # Linux using GCC
+ CXX=c++
+-CXXFLAGS=-O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
++CXXFLAGS=$(RPM_OPT_FLAGS) -fPIC -DPIC -Wno-parentheses -Wno-switch -Wno-sign-compare -Wno-class-memaccess -Wno-unused-variable -Wno-unused-function -Wno-dangling-else
+ LIBFLAGS=-fPIC
+ DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
+ STRIP=strip
+ AR=ar
+-LDFLAGS=-pthread
++LDFLAGS=$(RPM_LD_FLAGS) -pthread
+ DESTDIR=/usr
+ 
+ # Linux using LCC
 @@ -142,21 +142,18 @@
  	@rm -f $(OBJECTS) $(UNRAR_OBJ) $(LIB_OBJ)
  	@rm -f unrar libunrar.*
@@ -33,3 +48,4 @@ Gentoo-Bug: https://bugs.gentoo.org/528218
  	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
  	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)
  
+
