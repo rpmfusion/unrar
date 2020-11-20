@@ -1,5 +1,5 @@
 Name:           unrar
-Version:        6.0.1
+Version:        6.0.2
 Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
@@ -89,6 +89,9 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %changelog
+* Fri Nov 20 2020 Leigh Scott <leigh123linux@gmail.com> - 6.0.2-1
+- Update to 6.0.2
+
 * Mon Oct 26 2020 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
 - Update to 6.0.1
 
