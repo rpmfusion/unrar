@@ -1,6 +1,6 @@
 Name:           unrar
-Version:        6.0.3
-Release:        2%{?dist}
+Version:        6.0.5
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
@@ -89,6 +89,9 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %changelog
+* Thu Apr 29 2021 Leigh Scott <leigh123linux@gmail.com> - 6.0.5-1
+- Update to 6.0.5
+
 * Thu Feb 04 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 6.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
