@@ -7,7 +7,7 @@ URL:            https://www.rarlab.com/rar_add.htm
 Source0:        https://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Man page from Debian
 Source1:        unrar.1
-Patch0:         unrar-6.0.1-build.patch
+Patch0:         unrar-6.2.6-build.patch
 
 BuildRequires:  gcc-c++
 

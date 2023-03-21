@@ -1,13 +1,6 @@
-Makefile: Fix parallel build issue
-
-If clean runs in parallel with $(OBJECTS), it is possible to build some
-objects first, then the clean target fires and deletes some, and then we
-try to link and fail.
-
-Gentoo-Bug: https://bugs.gentoo.org/528218
-
---- a/makefile
-+++ b/makefile
+diff -uNrp a/makefile b/makefile
+--- a/makefile	2023-02-06 10:31:30.000000000 +0000
++++ b/makefile	2023-03-21 07:50:16.381759963 +0000
 @@ -3,12 +3,12 @@
  
  # Linux using GCC
@@ -23,29 +16,24 @@ Gentoo-Bug: https://bugs.gentoo.org/528218
  DESTDIR=/usr
  
  # Linux using LCC
-@@ -142,21 +142,18 @@
- 	@rm -f $(OBJECTS) $(UNRAR_OBJ) $(LIB_OBJ)
- 	@rm -f unrar libunrar.*
+@@ -146,20 +146,17 @@ clean:
+ # 'make -Jn' builds.
  
--unrar:	clean $(OBJECTS) $(UNRAR_OBJ)
+ unrar:	$(OBJECTS) $(UNRAR_OBJ)
 -	@rm -f unrar
-+unrar:	$(OBJECTS) $(UNRAR_OBJ)
  	$(LINK) -o unrar $(LDFLAGS) $(OBJECTS) $(UNRAR_OBJ) $(LIBS)	
  	$(STRIP) unrar
  
  sfx:	WHAT=SFX_MODULE
--sfx:	clean $(OBJECTS)
+ sfx:	$(OBJECTS)
 -	@rm -f default.sfx
-+sfx:	$(OBJECTS)
  	$(LINK) -o default.sfx $(LDFLAGS) $(OBJECTS)
  	$(STRIP) default.sfx
  
  lib:	WHAT=RARDLL
  lib:	CXXFLAGS+=$(LIBFLAGS)
--lib:	clean $(OBJECTS) $(LIB_OBJ)
+ lib:	$(OBJECTS) $(LIB_OBJ)
 -	@rm -f libunrar.*
-+lib:	$(OBJECTS) $(LIB_OBJ)
  	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
  	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)
  
-
