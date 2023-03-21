@@ -1,5 +1,5 @@
 Name:           unrar
-Version:        6.2.5
+Version:        6.2.6
 Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
@@ -45,7 +45,7 @@ cp -p %SOURCE1 .
 %build
 %set_build_flags
 %make_build -f makefile unrar STRIP=:
-
+rm -f *.o
 %make_build -f makefile lib STRIP=:
 
 
@@ -89,6 +89,10 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %changelog
+* Tue Mar 21 2023 Leigh Scott <leigh123linux@gmail.com> - 6.2.6-1
+- Update to 6.2.6
+- Fix undefined symbol (rfbz#6610)
+
 * Sat Feb 11 2023 Leigh Scott <leigh123linux@gmail.com> - 6.2.5-1
 - Update to 6.2.5
 
