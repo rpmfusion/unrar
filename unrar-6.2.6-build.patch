@@ -1,11 +1,11 @@
 diff -uNrp a/makefile b/makefile
---- a/makefile	2023-02-06 10:31:30.000000000 +0000
-+++ b/makefile	2023-03-21 07:50:16.381759963 +0000
+--- a/makefile
++++ b/makefile
 @@ -3,12 +3,12 @@
  
  # Linux using GCC
  CXX=c++
--CXXFLAGS=-O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
+-CXXFLAGS=-march=native -O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
 +CXXFLAGS=$(RPM_OPT_FLAGS) -fPIC -DPIC -Wno-parentheses -Wno-switch -Wno-sign-compare -Wno-class-memaccess -Wno-unused-variable -Wno-unused-function -Wno-dangling-else
  LIBFLAGS=-fPIC
  DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
@@ -15,8 +15,8 @@ diff -uNrp a/makefile b/makefile
 +LDFLAGS=$(RPM_LD_FLAGS) -pthread
  DESTDIR=/usr
  
- # Linux using LCC
-@@ -146,20 +146,17 @@ clean:
+ ##########################
+@@ -45,20 +45,17 @@
  # 'make -Jn' builds.
  
  unrar:	$(OBJECTS) $(UNRAR_OBJ)
