@@ -1,11 +1,10 @@
-diff -uNrp a/makefile b/makefile
 --- a/makefile
 +++ b/makefile
 @@ -3,12 +3,12 @@
  
  # Linux using GCC
  CXX=c++
--CXXFLAGS=-march=native -O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
+-CXXFLAGS=-march=native -O2 -std=c++11 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
 +CXXFLAGS=$(RPM_OPT_FLAGS) -fPIC -DPIC -Wno-parentheses -Wno-switch -Wno-sign-compare -Wno-class-memaccess -Wno-unused-variable -Wno-unused-function -Wno-dangling-else
  LIBFLAGS=-fPIC
  DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
@@ -37,3 +36,4 @@ diff -uNrp a/makefile b/makefile
  	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
  	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)
  
+

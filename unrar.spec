@@ -1,6 +1,6 @@
 Name:           unrar
-Version:        7.0.3
-Release:        2%{?dist}
+Version:        7.0.7
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
@@ -89,6 +89,9 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %changelog
+* Fri Mar 01 2024 Leigh Scott <leigh123linux@gmail.com> - 7.0.7-1
+- Update to 7.0.7
+
 * Sun Feb 04 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 7.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
