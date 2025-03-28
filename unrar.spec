@@ -1,13 +1,13 @@
 Name:           unrar
-Version:        7.0.7
-Release:        3%{?dist}
+Version:        7.1.6
+Release:        1%{?dist}
 Summary:        Utility for extracting, testing and viewing RAR archives
 License:        Freeware with further limitations
 URL:            https://www.rarlab.com/rar_add.htm
 Source0:        https://www.rarlab.com/rar/unrarsrc-%{version}.tar.gz
 # Man page from Debian
 Source1:        unrar.1
-Patch0:         unrar-6.2.6-build.patch
+Patch0:         unrar-7.1.6-build.patch
 
 BuildRequires:  gcc-c++
 
@@ -89,6 +89,9 @@ touch -r license.txt %{buildroot}%{_sysconfdir}/rpm/macros.unrar
 
 
 %changelog
+* Fri Mar 28 2025 Leigh Scott <leigh123linux@gmail.com> - 7.1.6-1
+- Update to 7.1.6
+
 * Wed Jan 29 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 7.0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

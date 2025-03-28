@@ -1,10 +1,10 @@
---- a/makefile
-+++ b/makefile
-@@ -3,12 +3,12 @@
- 
- # Linux using GCC
+--- a/makefile	2024-08-19 09:26:32.000000000 +0100
++++ b/makefile	2025-03-28 14:06:27.004945179 +0000
+@@ -6,12 +6,12 @@
+ # Thus we removed it. Clang ARM users can add -march=armv8-a+crypto to enable
+ # ARM NEON crypto.
  CXX=c++
--CXXFLAGS=-march=native -O2 -std=c++11 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
+-CXXFLAGS=-O2 -std=c++11 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
 +CXXFLAGS=$(RPM_OPT_FLAGS) -fPIC -DPIC -Wno-parentheses -Wno-switch -Wno-sign-compare -Wno-class-memaccess -Wno-unused-variable -Wno-unused-function -Wno-dangling-else
  LIBFLAGS=-fPIC
  DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
@@ -15,7 +15,7 @@
  DESTDIR=/usr
  
  ##########################
-@@ -45,20 +45,17 @@
+@@ -48,20 +48,17 @@ clean:
  # 'make -Jn' builds.
  
  unrar:	$(OBJECTS) $(UNRAR_OBJ)
@@ -36,4 +36,3 @@
  	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
  	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)
  
-
